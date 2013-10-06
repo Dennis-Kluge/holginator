@@ -38,7 +38,7 @@ Each composed feed consists of:
 * a title: The title of the feed
 * a description: The discription of the feed
 * an image: The image of the feed which can be seen in the player
-* feeds: A list of all feeds consisting the url and a filter. The filter is a regular expression and applied to the title and description. When no filter is given all items are merged to the composed feed.
+* feeds: A list of all feeds containing the url and a filter. The filter is a regular expression and applied to the title and description. When no filter is given all items are merged to the composed feed.
 
 ## Testing 
 For testing purposes you can use the task `holginator:test_feed[feed_name]`. In this case the feed is composed and written to stdio.
