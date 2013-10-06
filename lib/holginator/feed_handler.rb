@@ -46,14 +46,18 @@ module Holginator
     end
 
     def generate_feed(items, feed_definition)
+      feed_link = [LINK_PREFIX, feed_definition["name"]].join
+
       feed = RSS::Maker.make("2.0") do |maker|
-        # TODO add iTunes description
-        maker.channel.updated = Time.now.to_s
-        maker.channel.title = feed_definition["title"]
-        maker.channel.description = feed_definition["description"]
-        maker.channel.link = [LINK_PREFIX, feed_definition["name"]].join
+        channel = maker.channel
+        channel.updated = Time.now.to_s
+        channel.title = feed_definition["title"]
+        channel.description = feed_definition["description"]
+        channel.link = feed_link
         
-        maker.image.url = feed_definition["image"]
+        image = maker.image 
+        image.title = feed_definition["title"]
+        image.url = feed_definition["image"]
         
         maker.items.do_sort = true
         items.each_with_index do |item, index|
@@ -66,7 +70,6 @@ module Holginator
             new_item.enclosure.length = item.enclosure.length
             new_item.enclosure.type   = item.enclosure.type
           end
-
         end
       end          
       feed
