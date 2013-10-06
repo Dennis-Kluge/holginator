@@ -4,7 +4,7 @@ The Holginator merges and filters multiple Podcast feeds into a single one. This
 ## Installation
 The Holginator consists of two parts: 
 * A Sinatra based frontend which serves the feeds.
-* A Rake task which composes and filters the feeds and saves them in the public directory.
+* A Rake task which composes and filters the feeds and saves them on Redis.
 
 Clone the repository create a Dyno on Heroku and add a cron job to execute the `holginator:create_feeds` Rake task. 
 
@@ -34,7 +34,7 @@ The configuration is handled in the `feeds.json` which declares all composed fee
 
 Each composed feed consists of: 
 
-* a name: The (file)name of the final feed
+* a name: The name of the final feed
 * a title: The title of the feed
 * a description: The discription of the feed
 * an image: The image of the feed which can be seen in the player
