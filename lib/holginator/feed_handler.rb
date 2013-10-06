@@ -1,6 +1,7 @@
 require "rss"
 require "json"
 require "rest_client"
+require "redis"
 
 module Holginator
   class FeedHandler
@@ -9,7 +10,18 @@ module Holginator
 
     def initialize
       feed_config = File.read(File.expand_path("../../../feeds.json", __FILE__))
-      @feed_specification = JSON.parse(feed_config)            
+      @feed_specification = JSON.parse(feed_config)                  
+      connect_to_redis
+    end
+
+    def connect_to_redis
+      if ENV["REDISCLOUD_URL"]
+        uri = URI.parse(ENV["REDISCLOUD_URL"])
+        @redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)          
+      else
+        puts "... testing locally"
+        @redis = Redis.new
+      end
     end
 
     def create_feeds
@@ -32,8 +44,8 @@ module Holginator
       end
 
       if !test_feed_definition.empty? 
-        items = collect_items(feed_definition["feeds"])              
-        feed = generate_feed(items.flatten, feed_definition)      
+        items = collect_items(test_feed_definition["feeds"])              
+        feed = generate_feed(items.flatten, test_feed_definition)      
         puts "#{feed_name}: #{feed}"
       else
         nil
@@ -41,8 +53,8 @@ module Holginator
     end
 
     def write_feed(feed, feed_definition)
-      destination_path = File.expand_path("../../../public/#{feed_definition["name"]}.xml", __FILE__)
-      File.write(destination_path, feed)
+      key = ["holginator:", feed_definition["name"]].join
+      @redis.set(key, feed)
     end
 
     def generate_feed(items, feed_definition)

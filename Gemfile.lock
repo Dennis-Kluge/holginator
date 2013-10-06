@@ -2,12 +2,14 @@ GEM
   remote: https://rubygems.org/
   specs:
     diff-lcs (1.2.4)
+    dotenv (0.9.0)
     json (1.7.7)
     mime-types (1.25)
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
     rake (10.1.0)
+    redis (3.0.5)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rspec (2.14.1)
@@ -28,8 +30,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dotenv
   json
   rake
+  redis
   rest-client
   rspec
   sinatra

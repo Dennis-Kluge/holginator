@@ -6,6 +6,8 @@ gem "sinatra"
 gem "rest-client"
 gem "json"
 gem "rake"
+gem "redis"
+gem "dotenv"
 
 group :test do 
   gem "rspec"
