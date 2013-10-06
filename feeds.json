@@ -1,0 +1,39 @@
+{
+  "composed_feeds": [
+    {
+      "name": "holgi_blue_moon_lateline",
+      "title": "Ein Feed aller Formate von und mit Holgi", 
+      "description": "foobar",
+      "image": "/path/to/image",
+      "feeds": [
+        {
+          "url": "http://podcast.hr-online.de/lateline/podcast.xml",
+          "filter": "(h|H)olger"
+        }, 
+        {
+          "url": "http://www.fritz.de/podcasts/sendungen/Blue_Moon.feed.podcast.xml",
+          "filter": "(h|H)olger"
+        }
+      ]
+    },
+    {
+      "name": "holgi_wrint_blue_moon_lateline",
+      "title": "Ein Feed aller Formate von und mit Holgi", 
+      "description": "foobar",
+      "image": "/path/to/image",
+      "feeds": [
+        {
+          "url": "http://feeds.feedburner.com/wrint/wrint"
+        },
+        {
+          "url": "http://podcast.hr-online.de/lateline/podcast.xml",
+          "filter": "(h|H)olger"
+        }, 
+        {
+          "url": "http://www.fritz.de/podcasts/sendungen/Blue_Moon.feed.podcast.xml",
+          "filter": "(h|H)olger"
+        }
+      ]
+    }
+  ]
+}
