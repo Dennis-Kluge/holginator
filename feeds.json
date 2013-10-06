@@ -2,9 +2,9 @@
   "composed_feeds": [
     {
       "name": "holgi_blue_moon_lateline",
-      "title": "Ein Feed aller Formate von und mit Holgi", 
-      "description": "foobar",
-      "image": "/path/to/image",
+      "title": "Holgi Blue Moon & Late Line", 
+      "description": "Ein Feed mit den aktuellen Blue Moon und Late Line Episoden von Holgi.",
+      "image": "http://wrint.de/wp-content/uploads/powerpress/wrint_basis_weiss_400.jpg",
       "feeds": [
         {
           "url": "http://podcast.hr-online.de/lateline/podcast.xml",
@@ -18,9 +18,9 @@
     },
     {
       "name": "holgi_wrint_blue_moon_lateline",
-      "title": "Ein Feed aller Formate von und mit Holgi", 
-      "description": "foobar",
-      "image": "/path/to/image",
+      "title": "Holgi WRINT, Blue Moon & Late Line", 
+      "description": "Ein Feed mit den aktuellen WRINT, Blue Moon und Late Line Episoden von Holgi.",
+      "image": "http://wrint.de/wp-content/uploads/powerpress/wrint_basis_weiss_400.jpg",
       "feeds": [
         {
           "url": "http://feeds.feedburner.com/wrint/wrint"
