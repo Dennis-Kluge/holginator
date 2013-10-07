@@ -62,37 +62,48 @@ module Holginator
     end
 
     def generate_feed(items, feed_definition)
-      feed_link = [LINK_PREFIX, feed_definition["name"]].join
-
       feed = RSS::Maker.make("2.0") do |maker|
-        channel = maker.channel
-        channel.updated = Time.now.to_s
-        channel.title = feed_definition["title"]
-        channel.description = feed_definition["description"]
-        channel.link = feed_link
-        
-        image = maker.image 
-        image.title = feed_definition["title"]
-        image.url = feed_definition["image"]
-        
-        maker.items.do_sort = true
-        items.each_with_index do |item, index|
-          maker.items.new_item do |new_item|
-            new_item.title            = item.title
-            new_item.description      = item.description
-            new_item.pubDate          = item.pubDate              
-            new_item.link             = item.link
-            new_item.enclosure.url    = item.enclosure.url            
-            new_item.enclosure.type   = item.enclosure.type
-            if item.enclosure.length
-              new_item.enclosure.length = item.enclosure.length 
-            else
-              new_item.enclosure.length = DEFAULT_ENCLOSURE_LENGTH
-            end
-          end
-        end
+        make_channel(maker.channel, feed_definition)
+        make_image(maker.image, feed_definition)        
+        maker.items.do_sort = true        
+        make_items(items, maker)
       end          
       feed
+    end
+
+    def make_items(items, maker)  
+      items.each_with_index do |item, index|
+        maker.items.new_item do |new_item|
+          new_item.title            = item.title
+          new_item.description      = item.description
+          new_item.pubDate          = item.pubDate              
+          new_item.link             = item.link
+          new_item.enclosure.url    = item.enclosure.url            
+          new_item.enclosure.type   = item.enclosure.type
+
+          if item.enclosure.length
+            new_item.enclosure.length = item.enclosure.length 
+          else
+            new_item.enclosure.length = DEFAULT_ENCLOSURE_LENGTH
+          end
+        end
+      end
+    end
+
+    def make_channel(channel, feed_definition)
+      channel.updated = Time.now.to_s
+      channel.title = feed_definition["title"]
+      channel.description = feed_definition["description"]
+      channel.link = feed_link(feed_definition)
+    end
+
+    def make_image(image, feed_definition)
+      image.title = feed_definition["title"]
+      image.url = feed_definition["image"]
+    end
+
+    def feed_link(feed_definition)
+      feed_link = [LINK_PREFIX, feed_definition["name"]].join
     end
 
     def collect_items(feeds)
