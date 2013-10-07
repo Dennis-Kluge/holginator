@@ -2,6 +2,7 @@ require "rss"
 require "json"
 require "rest_client"
 require "redis"
+require 'digest/sha1'
 
 module Holginator
   class FeedHandler
@@ -57,8 +58,13 @@ module Holginator
     end
 
     def write_feed(feed, feed_definition)
-      key = ["holginator:", feed_definition["name"]].join
-      @redis.set(key, feed)
+      feed_key = ["holginator:", feed_definition["name"]].join
+      @redis.set(feed_key, feed)
+
+      # creating a hash for etags
+      etag_key  = ["holginator:etag:", feed_definition["name"]].join
+      feed_hash = Digest::SHA1.hexdigest("#{feed}")
+      @redis.set(etag_key, feed_hash)
     end
 
     def generate_feed(items, feed_definition)

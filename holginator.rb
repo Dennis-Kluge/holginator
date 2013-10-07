@@ -13,7 +13,6 @@ configure do
 end
 
 get '/' do
-  "Holginator!"
   erb :index
 end
 
@@ -21,9 +20,15 @@ get '/:feed.xml' do
   key  = "holginator:#{params[:feed]}"
   feed = $redis.get(key)
   if feed
+    etag etag_for_feed
     content_type "application/rss+xml"
     feed
   else
     status 404
   end
+end
+
+def etag_for_feed
+  etag_key   = "holginator:etag:#{params[:feed]}"
+  $redis.get(etag_key)
 end
