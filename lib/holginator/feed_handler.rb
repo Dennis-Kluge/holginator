@@ -8,6 +8,10 @@ module Holginator
 
     LINK_PREFIX = "http://holginator.poddata.net/"
 
+    # some feeds are dirty as hell and don't provide
+    # a length in the enclosure tag
+    DEFAULT_ENCLOSURE_LENGTH = 1000000
+
     def initialize
       feed_config = File.read(File.expand_path("../../../feeds.json", __FILE__))
       @feed_specification = JSON.parse(feed_config)                  
@@ -78,9 +82,13 @@ module Holginator
             new_item.description      = item.description
             new_item.pubDate          = item.pubDate              
             new_item.link             = item.link
-            new_item.enclosure.url    = item.enclosure.url
-            new_item.enclosure.length = item.enclosure.length
+            new_item.enclosure.url    = item.enclosure.url            
             new_item.enclosure.type   = item.enclosure.type
+            if item.enclosure.length
+              new_item.enclosure.length = item.enclosure.length 
+            else
+              new_item.enclosure.length = DEFAULT_ENCLOSURE_LENGTH
+            end
           end
         end
       end          
