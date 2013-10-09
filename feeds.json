@@ -4,7 +4,7 @@
       "name": "holgi_blue_moon_lateline",
       "title": "Holgi Blue Moon & Late Line", 
       "description": "Ein Feed mit den aktuellen Blue Moon und Late Line Episoden von Holgi.",
-      "image": "http://wrint.de/wp-content/uploads/powerpress/wrint_basis_weiss_400.jpg",
+      "image": "http://holginator.poddata.net/images/bl.png",
       "feeds": [
         {
           "url": "http://podcast.hr-online.de/lateline/podcast.xml",
@@ -20,7 +20,7 @@
       "name": "holgi_wrint_blue_moon_lateline",
       "title": "Holgi WRINT, Blue Moon & Late Line", 
       "description": "Ein Feed mit den aktuellen WRINT, Blue Moon und Late Line Episoden von Holgi.",
-      "image": "http://wrint.de/wp-content/uploads/powerpress/wrint_basis_weiss_400.jpg",
+      "image": "http://holginator.poddata.net/images/blw.png",
       "feeds": [
         {
           "url": "http://feeds.feedburner.com/wrint/wrint"
