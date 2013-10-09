@@ -118,11 +118,22 @@ module Holginator
         puts "Downloading feed... #{feed["url"]}"
         downloaded_content = RestClient.get(feed["url"])
         # turning off validation because RSS feeds are a huge mess
-        feed_content = RSS::Parser.parse(downloaded_content, false)
-        filtered_items = filter_items(feed_content, feed["filter"])        
-        items << filtered_items
+        feed_content = RSS::Parser.parse(downloaded_content, false)        
+        filtered_items = filter_items(feed_content, feed["filter"])
+        enriched_items = enrich_items(filtered_items, feed_content.channel.title)        
+        items << enriched_items
       end
       items
+    end
+
+    def enrich_items(filtered_items, feed_title)
+      enriched_items = []
+      filtered_items.each do |item|
+        item.title = "#{feed_title}: #{item.title}"  
+        enriched_items << item 
+      end
+
+      enriched_items      
     end
 
     def filter_items(feed_content, filter)
