@@ -4,8 +4,6 @@ require 'sinatra'
 require 'json'
 require 'redis'
 
-
-
 helpers ::Holginator::SinatraHelper
 set :public_folder, 'public'
 
