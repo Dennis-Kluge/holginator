@@ -3,6 +3,7 @@ require "json"
 require "rest_client"
 require "redis"
 require 'digest/sha1'
+require 'net/http'
 
 module Holginator
   class FeedHandler
@@ -90,9 +91,24 @@ module Holginator
           if item.enclosure.length
             new_item.enclosure.length = item.enclosure.length 
           else
-            new_item.enclosure.length = DEFAULT_ENCLOSURE_LENGTH
+            new_item.enclosure.length = fetch_enclosure_length(item.enclosure.url)
           end
         end
+      end
+    end
+
+    def fetch_enclosure_length(url)
+      uri = URI.parse(url)
+      # because RestClient does'nt provide a way to fetch 
+      # only the header we do it this way
+      response = nil
+      Net::HTTP.start(uri.host, 80) do |http|
+        response = http.head(uri.path)
+      end
+      if response['content-length']
+        response['content-length']
+      else
+        DEFAULT_ENCLOSURE_LENGTH
       end
     end
 
