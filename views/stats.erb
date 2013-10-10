@@ -1,0 +1,26 @@
+<h2><%= @feed_name %> - Stats</h2>
+<p>Statistiken für das Jahr <%= @year %></p>
+
+<div class="panel panel-default">  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Monat</th>
+        <th>Abrufe</th>
+      </tr>
+    </thead>
+    <tbody>                          
+    <% @monthly_stats.each_with_index do |month, index| %>
+      <tr>
+        <td><%= month_for_index(index) %></td>
+        <% if month %>
+          <td><%= month %></td>        
+        <% else %>
+          <td>0</td>          
+        <% end %>        
+      </tr>
+      
+    <% end %>
+    </tbody>
+  </table>
+</div>
